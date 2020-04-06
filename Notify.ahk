@@ -75,6 +75,8 @@ Class NotifyClass{
 		SysGet,Mon,MonitorWorkArea
 		if(Info.Sound+0)
 			SoundBeep,% Info.Sound
+		if(FileExist(Info.Sound))
+			SoundPlay,% Info.Sound
 		this.MonBottom:=MonBottom,this.MonTop:=MonTop,this.MonLeft:=MonLeft,this.MonRight:=MonRight
 		if(Info.Time){
 			TT:=this.Dismiss.Bind({this:this,ID:ID})
