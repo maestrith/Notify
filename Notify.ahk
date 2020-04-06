@@ -58,9 +58,6 @@ Loop,2
 	Notify.AddWindow(Text[TT],{Radius:20,Animate:"Right,Slide",ShowDelay:Delay,Icon:Icon,IconSize:20,Title:"This is my title",TitleFont:"Tahoma",TitleSize:10,Time:Time,Background:Background,Color:Color,Time:Time,Progress:0})
 }
 return
-Notify(Margin:=5){
-	return New NotifyClass()
-}
 RandomProgress:
 for a,b in NotifyClass.Windows{
 	Random,Pro,10,100
@@ -71,6 +68,10 @@ Click(Obj){
 	for a,b in Obj
 		Msg.=a " = " b "`n"
 	MsgBox,%Msg%
+}
+;Actual code starts here
+Notify(Margin:=5){
+	return New NotifyClass()
 }
 Class NotifyClass{
 	__New(Margin:=10){
@@ -163,6 +164,7 @@ Class NotifyClass{
 		GuiControl,,% NotifyClass.Windows[ID].Progress,%Progress%
 	}
 }
+;Actual Code Ends Here
 return
 Escape::
 ExitApp
