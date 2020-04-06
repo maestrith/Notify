@@ -12,8 +12,8 @@ Notify.SetProgress(Window,ProgressValue)
 ```
 
 # Options:
-
-Icon: Can be either an Integer to pull an icon from Shell32.dll or a full path to an EXE or full path to a dll.  You can add a comma and an integer to select an icon from within that file eg. {Icon:"C:\Windows\HelpPane.exe,2"}
+Option|Usage|Description
+Icon|{Icon:"C:\Windows\HelpPane.exe,2"}|Can be either an Integer to pull an icon from Shell32.dll or a full path to an EXE or full path to a dll.  You can add a comma and an integer to select an icon from within that file eg. 
 
 IconSize: Width and Height of the Icon eg. {IconSize:20}
 
