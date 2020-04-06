@@ -15,35 +15,19 @@ Notify.SetProgress(Window,ProgressValue)
 Option|Usage|Description
 ------|-----|-----------
 Icon|{Icon:"C:\Windows\HelpPane.exe,2"}|Can be either an Integer to pull an icon from Shell32.dll or a full path to an EXE or full path to a dll.  You can add a comma and an integer to select an icon from within that file eg. 
-
-IconSize: Width and Height of the Icon eg. {IconSize:20}
-
-Background: Color value in quotes eg. {Background:"0xAA00AA"}
-
-Color: Font color eg.{Color:"0xAAAAAA"}
-
-Title: Sets the title of the notification eg. {Title:"This is my title"}
-
-TitleColor: Title font color eg. {TitleColor:"0xAAAAAA"}
-
-TitleSize: Size of the title text eg. {TitleSize:12}
-
-TitleFont: Face of the title font eg. {TitleFont:"Consolas"}
-
-Font: Face of the message font eg. {Font:"Consolas"}
-
-Size: Size of the message text eg {Size:20}
-
-Radius: Size of the border radius eg. {Radius:10}
-
-Animate: Ways that the window will animate in eg. {Animate:""} Can be Bottom, Top, Left, Right, Slide, Center, or Blend (Some work together, and some override others)
-
-Progress: Adds a progress bar eg. {Progress:10} ;Starts with the progress set to 10%
-
-Flash: Flashes the background of the notification every X ms eg. {Flash:1000}
-
-FlashColor: Sets the second color that your notification will change to when flashing eg. {FlashColor:"0xFF00FF"}
-
-Time: Sets the amount of time that the notification will be visible eg. {Time:2000}
-
-Sound: Plays either a beep if the item is an integer or the sound file if it exists eg. {Sound:500}
+IconSize|{IconSize:20}|Width and Height of the Icon
+Background|{Background:"0xAA00AA"}|Color value in quotes
+Color|{Color:"0xAAAAAA"}|Font color
+Title|{Title:"This is my title"}|Sets the title of the notification
+TitleColor|{TitleColor:"0xAAAAAA"}|Title font color
+TitleSize|{TitleSize:12}|Size of the title text
+TitleFont|{TitleFont:"Consolas"}|Face of the title font
+Font|{Font:"Consolas"}|Face of the message font
+Size|{Size:20}|Size of the message text
+Radius|{Radius:10}|Size of the border radius
+Animate|{Animate:"Bottom,Left"}|Ways that the window will animate in. Can be Bottom, Top, Left, Right, Slide, Center, or Blend (Some work together, and some override others)
+Progress|{Progress:10}|Adds a progress bar ;Starts with the progress set to 10%
+Flash|{Flash:1000}|Flashes the background of the notification every X ms
+FlashColor|{FlashColor:"0xFF00FF"}|Sets the second color that your notification will change to when flashing
+Time|{Time:2000}|Sets the amount of time that the notification will be visible
+Sound|{Sound:500}|Plays either a beep if the item is an integer or the sound file if it exists
