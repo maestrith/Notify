@@ -6,10 +6,12 @@ Notify:=Notify()
 
 Window:=Notify.AddWindow("Your Text Here",{Icon:4,Background:"0xAA00AA"})
 ```
+Window ID will be used when making calls to
+```
+Notify.SetProgress(Window,ProgressValue)
+```
 
 # Options:
-
-Window ID will be used when making calls to Notify.SetProgress(Window,ProgressValue)
 
 Icon: Can be either an Integer to pull an icon from Shell32.dll or a full path to an EXE or full path to a dll.  You can add a comma and an integer to select an icon from within that file eg. {Icon:"C:\Windows\HelpPane.exe,2"}
 
