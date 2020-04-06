@@ -1,9 +1,10 @@
 # Notify
 Usage:
 
-Notify:=Notify()
+```Notify:=Notify()
 
 Window:=Notify.AddWindow("Your Text Here",{Icon:4,Background:"0xAA00AA"})
+```
 
 # Options:
 
