@@ -117,8 +117,7 @@ Class NotifyClass{
 		if(WinExist(Obj.ID))
 			Gui,% Obj.Win ":Color",%Color%,%Color%
 	}SetPos(){
-		Width:=this.MonRight-this.MonLeft,MH:=this.MonBottom-this.MonTop
-		MinX:=[],MinY:=[],Obj:=[],Height:=0,Sub:=0,MY:=MH,MaxW:={0:1}
+		Width:=this.MonRight-this.MonLeft,MH:=this.MonBottom-this.MonTop,MinX:=[],MinY:=[],Obj:=[],Height:=0,Sub:=0,MY:=MH,MaxW:={0:1},Delay:=A_WinDelay,Hidden:=A_DetectHiddenWindows
 		DetectHiddenWindows,On
 		SetWinDelay,-1
 		for a,b in NotifyClass.Windows{
@@ -126,23 +125,15 @@ Class NotifyClass{
 			Height+=h+this.Margin
 			if(MH<=Height)
 				Sub:=Width-MinX.MinIndex()+this.Margin,MY:=MH,MinY:=[],MinX:=[],Height:=h,MaxW:={0:1},Reset:=1
-			MaxW[w]:=1
-			MinX[Width-w-Sub]:=1,MinY[MY:=MY-h-this.Margin]:=y
-			XPos:=MinX.MinIndex()+(Reset?0:MaxW.MaxIndex()-w)
+			MaxW[w]:=1,MinX[Width-w-Sub]:=1,MinY[MY:=MY-h-this.Margin]:=y,XPos:=MinX.MinIndex()+(Reset?0:MaxW.MaxIndex()-w)
 			WinMove,% b.ID,,%XPos%,MinY.MinIndex()
-			Obj[a]:={x:x,y:y,w:w,h:h}
-			Reset:=0
-		}
-		DetectHiddenWindows,% this.Hidden
-		return {x:MinX.MinIndex(),y:MinY.MinIndex(),Obj:Obj}
+			Obj[a]:={x:x,y:y,w:w,h:h},Reset:=0
+		}DetectHiddenWindows,%Hidden%
+		SetWinDelay,%Delay%
 	}SetProgress(ID,Progress){
 		GuiControl,,% NotifyClass.Windows[ID].Progress,%Progress%
 	}
 }
-
-/*
-	t(x,y,w,h,MonBottom)
-*/
 return
 Escape::
 ExitApp
