@@ -3,7 +3,7 @@ Usage:
 Notify:=Notify()
 Window:=Notify.AddWindow("Your Text Here",{Icon:4,Background:"0xAA00AA"})
 
-#Options:
+# Options:
 
 Window ID will be used when making calls to Notify.SetProgress(Window,ProgressValue)
 
