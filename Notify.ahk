@@ -30,8 +30,8 @@ Notify:=Notify()
 	TitleFont: Face of the title font eg. {TitleFont:"Consolas"}
 	TitleSize: Size of the title text eg. {TitleSize:12}
 */
-if(){
-	Notify.AddWindow("Testing",{Background:"0xFF00FF",Color:"0xFF0000",ShowDelay:1000,Hide:"Top"})
+if(1){
+	Notify.AddWindow("Testing",{Background:"0xFF00FF",Color:"0xFF0000",ShowDelay:1000,Hide:"Top,Left",Buttons:"This,One,Here"})
 	return
 }
 Text:=["Longer text for a longer thing","Taller Text`nfor`na`ntaller`nthing"]
@@ -39,8 +39,6 @@ SetTimer,RandomProgress,500
 Loop,2
 {
 	Random,Time,3000,8000
-	/*
-	*/
 	/*
 		Time:=A_Index=40?1000:Time
 		Random,Sound,500,800
@@ -123,7 +121,13 @@ Class NotifyClass{
 			TT:=this.Flash.Bind({this:this,ID:ID})
 			SetTimer,%TT%,% Info.Flash
 			NotifyClass.Windows[ID].Timer:=TT
-		}if(Info.Progress!=""){
+		}
+		for a,b in StrSplit(Info.Buttons,","){
+			Gui,Margin,5,5
+			Gui,Font,s10
+			Gui,Add,Button,% (a=1?"xm":"x+m"),%b%
+		}
+		if(Info.Progress!=""){
 			Gui,Win%ID%:Font,s4
 			ControlGetPos,x,y,w,h,,ahk_id%Text%
 			Gui,Add,Progress,w%w% HWNDProgress,% Info.Progress
@@ -139,7 +143,7 @@ Class NotifyClass{
 		DetectHiddenWindows,%Hidden%
 		return ID
 	}Click(){
-		Obj:=NotifyClass.Windows[RegExReplace(A_Gui,"\D")],(Fun:=Func("Click"))?Fun.Call(Obj):"",this.Delete(A_Gui)
+		Obj:=NotifyClass.Windows[RegExReplace(A_Gui,"\D")],Obj.Button:=A_GuiControl,(Fun:=Func("Click"))?Fun.Call(Obj):"",this.Delete(A_Gui)
 	}Delete(Win){
 		Win:=RegExReplace(Win,"\D")
 		Obj:=NotifyClass.Windows[Win]
