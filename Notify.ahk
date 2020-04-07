@@ -31,7 +31,7 @@ Notify:=Notify()
 	TitleSize: Size of the title text eg. {TitleSize:12}
 */
 if(1){
-	Notify.AddWindow("Testing",{Background:"0xFF00FF",Color:"0xFF0000",ShowDelay:1000,Hide:"Top,Left",Buttons:"This,One,Here"})
+	Notify.AddWindow("Testing",{Background:"0xFF00FF",Color:"0xFF0000",ShowDelay:1000,Hide:"Top,Left",Buttons:"This,One,Here",Radius:40})
 	return
 }
 Text:=["Longer text for a longer thing","Taller Text`nfor`na`ntaller`nthing"]
@@ -68,11 +68,12 @@ return
 Click(Obj){
 	for a,b in Obj
 		Msg.=a " = " b "`n"
-	MsgBox,%Msg%
+    	MsgBox,%Msg%
 }
 ;Actual code starts here
 Notify(Margin:=5){
-	return New NotifyClass()
+	static Notify:=New NotifyClass()
+	return Notify
 }
 Class NotifyClass{
 	__New(Margin:=10){
@@ -95,7 +96,7 @@ Class NotifyClass{
 		this.Hidden:=Hidden:=A_DetectHiddenWindows,this.Current:=ID:=++this.ID,Owner:=WinActive("A")
  		Gui,Win%ID%:Default
 		if(Info.Radius)
-			Gui,Margin,% Floor(Info.Radius/2),% Floor(Info.Radius/2)
+			Gui,Margin,% Floor(Info.Radius/3),% Floor(Info.Radius/3)
 		Gui,-Caption +HWNDMain +AlwaysOnTop +Owner%Owner%
 		Gui,Color,% Info.Background,% Info.Background
 		NotifyClass.Windows[ID]:={ID:"ahk_id" Main,HWND:Main,Win:"Win" ID,Text:Text,Background:Info.Background,FlashColor:Info.FlashColor,Title:Info.Title}
@@ -123,7 +124,7 @@ Class NotifyClass{
 			NotifyClass.Windows[ID].Timer:=TT
 		}
 		for a,b in StrSplit(Info.Buttons,","){
-			Gui,Margin,5,5
+			Gui,Margin,% Info.Radius?Info.Radius/2:5,5
 			Gui,Font,s10
 			Gui,Add,Button,% (a=1?"xm":"x+m"),%b%
 		}
@@ -181,6 +182,7 @@ Class NotifyClass{
 		GuiControl,,% NotifyClass.Windows[ID].Progress,%Progress%
 	}
 }
+
 ;Actual Code Ends Here
 return
 Escape::
