@@ -25,7 +25,7 @@ IconSize|{IconSize:20}|Width and Height of the Icon
 Progress|{Progress:10}|Adds a progress bar ;Starts with the progress set to 10%
 Radius|{Radius:10}|Size of the border radius
 Size|{Size:20}|Size of the message text
-ShowDelay|{ShowDelay:1000}|Time in MS of how long it takes to show the notification
+ShowDelay|{ShowDelay:1000}|Time in MS of how long it takes to show and hide the notification
 Sound|{Sound:500}|Plays either a beep if the item is an integer or the sound file if it exists
 Time|{Time:2000}|Sets the amount of time that the notification will be visible
 Title|{Title:"This is my title"}|Sets the title of the notification
