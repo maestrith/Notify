@@ -136,13 +136,6 @@ Class NotifyClass{
 		for a,b in StrSplit(Info.Animate,",")
 			Flags|=Round(this.Animation[b])
 		DllCall("AnimateWindow","UInt",Main,"Int",(Info.ShowDelay?Info.ShowDelay:this.ShowDelay),"UInt",(Flags?Flags:0x00000008|0x00000004|0x00040000|0x00000002))
-		/*
-			Sleep,1000
-		*/
-		/*
-			WinHide,ahk_id%Main%
-			WinMove,ahk_id%Main%,,0,0
-		*/
 		DetectHiddenWindows,%Hidden%
 		return ID
 	}Click(){
