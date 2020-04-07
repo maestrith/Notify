@@ -22,6 +22,7 @@ Notify:=Notify()
 	Progress: Adds a progress bar eg. {Progress:10} ;Starts with the progress set to 10%
 	Radius: Size of the border radius eg. {Radius:10}
 	Size: Size of the message text eg {Size:20}
+	ShowDelay: Time in MS of how long it takes to show the notification
 	Sound: Plays either a beep if the item is an integer or the sound file if it exists eg. {Sound:500}
 	Time: Sets the amount of time that the notification will be visible eg. {Time:2000}
 	Title: Sets the title of the notification eg. {Title:"This is my title"}
@@ -30,7 +31,7 @@ Notify:=Notify()
 	TitleSize: Size of the title text eg. {TitleSize:12}
 */
 if(){
-	Notify.AddWindow("Testing",{Background:"0xFF00FF",Color:"0xFF0000"})
+	Notify.AddWindow("Testing",{Background:"0xFF00FF",Color:"0xFF0000",ShowDelay:1000,Hide:"Top"})
 	return
 }
 Text:=["Longer text for a longer thing","Taller Text`nfor`na`ntaller`nthing"]
@@ -48,16 +49,14 @@ Loop,2
 	Random,Background,0x0,0xFFFFFF
 	Random,Color,0x0,0xFFFFFF
 	Random,Icon,20,200
-	/*
-		Notify.AddWindow(Text[TT],{Icon:300,Title:"This is my title",TitleFont:"Tahoma",TitleSize:10,Time:Time,Background:Background,Flash:1000,Color:Color})
-		Notify.AddWindow(Text[TT],{Icon:"D:\AHK\AHK-Studio\AHK-Studio.exe",IconSize:20,Title:"This is my title",TitleFont:"Tahoma",TitleSize:10,Time:Time,Background:Background,Flash:1000,FlashColor:"0xAA00AA",Color:Color,Time:Time,Sound:Sound})
-		Notify.AddWindow(Text[TT],{Icon:Icon,IconSize:80,Title:"This is my title",TitleFont:"Tahoma",TitleSize:10,Time:Time,Background:Background,Flash:1000,FlashColor:"0xAA00AA",Color:Color,Time:Time,Sound:Sound})
-		ID:=Notify.AddWindow(Text[TT],{Progress:0,Icon:Icon,IconSize:80,Title:"This is my title",TitleFont:"Tahoma",TitleSize:10,Time:Time,Background:Background,Flash:1000,FlashColor:"0xAA00AA",Color:Color,Time:Time,Sound:Sound})
-		Notify.AddWindow("This is my text",{Title:"My Title"})
-		Random,Ico,1,5
-		Notify.AddWindow("Odd icon",{Icon:A_AhkPath "," Ico,IconSize:20,Title:"This is my title",TitleFont:"Tahoma",TitleSize:10,Time:Time,Background:Background,Flash:1000,Color:Color,Time:Time})
-		Random,Delay,100,400
-	*/
+	Notify.AddWindow(Text[TT],{Icon:300,Title:"This is my title",TitleFont:"Tahoma",TitleSize:10,Time:Time,Background:Background,Flash:1000,Color:Color})
+	Notify.AddWindow(Text[TT],{Icon:"D:\AHK\AHK-Studio\AHK-Studio.exe",IconSize:20,Title:"This is my title",TitleFont:"Tahoma",TitleSize:10,Time:Time,Background:Background,Flash:1000,FlashColor:"0xAA00AA",Color:Color,Time:Time,Sound:Sound})
+	Notify.AddWindow(Text[TT],{Icon:Icon,IconSize:80,Title:"This is my title",TitleFont:"Tahoma",TitleSize:10,Time:Time,Background:Background,Flash:1000,FlashColor:"0xAA00AA",Color:Color,Time:Time,Sound:Sound})
+	ID:=Notify.AddWindow(Text[TT],{Progress:0,Icon:Icon,IconSize:80,Title:"This is my title",TitleFont:"Tahoma",TitleSize:10,Time:Time,Background:Background,Flash:1000,FlashColor:"0xAA00AA",Color:Color,Time:Time,Sound:Sound})
+	Notify.AddWindow("This is my text",{Title:"My Title"})
+	Random,Ico,1,5
+	Notify.AddWindow("Odd icon",{Icon:A_AhkPath "," Ico,IconSize:20,Title:"This is my title",TitleFont:"Tahoma",TitleSize:10,Time:Time,Background:Background,Flash:1000,Color:Color,Time:Time})
+	Random,Delay,100,400
 	Delay:=1000
 	Notify.AddWindow(Text[TT],{Radius:20,Hide:"Left,Bottom",Animate:"Right,Slide",ShowDelay:Delay,Icon:Icon,IconSize:20,Title:"This is my title",TitleFont:"Tahoma",TitleSize:10,Background:Background,Color:Color,Time:Time,Progress:0})
 }
