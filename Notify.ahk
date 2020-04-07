@@ -12,6 +12,7 @@ Notify:=Notify()
 	
 	Animate: Ways that the window will animate in eg. {Animate:""} Can be Bottom, Top, Left, Right, Slide, Center, or Blend (Some work together, and some override others)
 	Background: Color value in quotes eg. {Background:"0xAA00AA"}
+	Buttons: Comma Delimited list of names for buttons eg. {Buttons:"One,Two,Three"}
 	Color: Font color eg.{Color:"0xAAAAAA"}
 	Flash: Flashes the background of the notification every X ms eg. {Flash:1000}
 	FlashColor: Sets the second color that your notification will change to when flashing eg. {FlashColor:"0xFF00FF"}
