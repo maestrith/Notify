@@ -10,7 +10,11 @@ Window ID will be used when making calls to
 ```
 Notify.SetProgress(Window,ProgressValue)
 ```
-
+```
+Click(Obj){
+    MsgBox,% Obj.Button ;Tells you which button clicked
+}
+```
 # Options:
 Option|Usage|Description
 ------|-----|-----------
