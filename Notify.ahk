@@ -18,6 +18,7 @@ Notify:=Notify()
 	Font: Face of the message font eg. {Font:"Consolas"}
 	Icon: Can be either an Integer to pull an icon from Shell32.dll or a full path to an EXE or full path to a dll.  You can add a comma and an integer to select an icon from within that file eg. {Icon:"C:\Windows\HelpPane.exe,2"}
 	IconSize: Width and Height of the Icon eg. {IconSize:20}
+	Hide: Comma Separated List of Directions to Hide the Notification eg. {Hide:"Left,Top"}
 	Progress: Adds a progress bar eg. {Progress:10} ;Starts with the progress set to 10%
 	Radius: Size of the border radius eg. {Radius:10}
 	Size: Size of the message text eg {Size:20}
@@ -36,8 +37,8 @@ Text:=["Longer text for a longer thing","Taller Text`nfor`na`ntaller`nthing"]
 SetTimer,RandomProgress,500
 Loop,2
 {
+	Random,Time,3000,8000
 	/*
-		Random,Time,3000,8000
 	*/
 	/*
 		Time:=A_Index=40?1000:Time
@@ -47,15 +48,18 @@ Loop,2
 	Random,Background,0x0,0xFFFFFF
 	Random,Color,0x0,0xFFFFFF
 	Random,Icon,20,200
-	Notify.AddWindow(Text[TT],{Icon:300,Title:"This is my title",TitleFont:"Tahoma",TitleSize:10,Time:Time,Background:Background,Flash:1000,Color:Color})
-	Notify.AddWindow(Text[TT],{Icon:"D:\AHK\AHK-Studio\AHK-Studio.exe",IconSize:20,Title:"This is my title",TitleFont:"Tahoma",TitleSize:10,Time:Time,Background:Background,Flash:1000,FlashColor:"0xAA00AA",Color:Color,Time:Time,Sound:Sound})
-	Notify.AddWindow(Text[TT],{Icon:Icon,IconSize:80,Title:"This is my title",TitleFont:"Tahoma",TitleSize:10,Time:Time,Background:Background,Flash:1000,FlashColor:"0xAA00AA",Color:Color,Time:Time,Sound:Sound})
-	ID:=Notify.AddWindow(Text[TT],{Progress:0,Icon:Icon,IconSize:80,Title:"This is my title",TitleFont:"Tahoma",TitleSize:10,Time:Time,Background:Background,Flash:1000,FlashColor:"0xAA00AA",Color:Color,Time:Time,Sound:Sound})
-	Notify.AddWindow("This is my text",{Title:"My Title"})
-	Random,Ico,1,5
-	Notify.AddWindow("Odd icon",{Icon:A_AhkPath "," Ico,IconSize:20,Title:"This is my title",TitleFont:"Tahoma",TitleSize:10,Time:Time,Background:Background,Flash:1000,Color:Color,Time:Time})
-	Random,Delay,100,400
-	Notify.AddWindow(Text[TT],{Radius:20,Animate:"Right,Slide",ShowDelay:Delay,Icon:Icon,IconSize:20,Title:"This is my title",TitleFont:"Tahoma",TitleSize:10,Time:Time,Background:Background,Color:Color,Time:Time,Progress:0})
+	/*
+		Notify.AddWindow(Text[TT],{Icon:300,Title:"This is my title",TitleFont:"Tahoma",TitleSize:10,Time:Time,Background:Background,Flash:1000,Color:Color})
+		Notify.AddWindow(Text[TT],{Icon:"D:\AHK\AHK-Studio\AHK-Studio.exe",IconSize:20,Title:"This is my title",TitleFont:"Tahoma",TitleSize:10,Time:Time,Background:Background,Flash:1000,FlashColor:"0xAA00AA",Color:Color,Time:Time,Sound:Sound})
+		Notify.AddWindow(Text[TT],{Icon:Icon,IconSize:80,Title:"This is my title",TitleFont:"Tahoma",TitleSize:10,Time:Time,Background:Background,Flash:1000,FlashColor:"0xAA00AA",Color:Color,Time:Time,Sound:Sound})
+		ID:=Notify.AddWindow(Text[TT],{Progress:0,Icon:Icon,IconSize:80,Title:"This is my title",TitleFont:"Tahoma",TitleSize:10,Time:Time,Background:Background,Flash:1000,FlashColor:"0xAA00AA",Color:Color,Time:Time,Sound:Sound})
+		Notify.AddWindow("This is my text",{Title:"My Title"})
+		Random,Ico,1,5
+		Notify.AddWindow("Odd icon",{Icon:A_AhkPath "," Ico,IconSize:20,Title:"This is my title",TitleFont:"Tahoma",TitleSize:10,Time:Time,Background:Background,Flash:1000,Color:Color,Time:Time})
+		Random,Delay,100,400
+	*/
+	Delay:=1000
+	Notify.AddWindow(Text[TT],{Radius:20,Hide:"Left,Bottom",Animate:"Right,Slide",ShowDelay:Delay,Icon:Icon,IconSize:20,Title:"This is my title",TitleFont:"Tahoma",TitleSize:10,Background:Background,Color:Color,Time:Time,Progress:0})
 }
 return
 RandomProgress:
@@ -85,6 +89,11 @@ Class NotifyClass{
 				Info[a]:=b
 		if(!IsObject(Win:=NotifyClass.Windows))
 			Win:=NotifyClass.Windows:=[]
+		Hide:=0
+		for a,b in StrSplit(Info.Hide,",")
+			if(Val:=this.Animation[b])
+				Hide|=Val
+		Info.Hide:=Hide
 		DetectHiddenWindows,On
 		this.Hidden:=Hidden:=A_DetectHiddenWindows,this.Current:=ID:=++this.ID,Owner:=WinActive("A")
  		Gui,Win%ID%:Default
@@ -93,6 +102,8 @@ Class NotifyClass{
 		Gui,-Caption +HWNDMain +AlwaysOnTop +Owner%Owner%
 		Gui,Color,% Info.Background,% Info.Background
 		NotifyClass.Windows[ID]:={ID:"ahk_id" Main,HWND:Main,Win:"Win" ID,Text:Text,Background:Info.Background,FlashColor:Info.FlashColor,Title:Info.Title}
+		for a,b in Info
+			NotifyClass.Windows[ID,a]:=b
 		if((Ico:=StrSplit(Info.Icon,",")).1)
 			Gui,Add,Picture,% (Info.IconSize?"w" Info.IconSize " h" Info.IconSize:""),% "HBITMAP:" LoadPicture(Foo:=(Ico.1+0?"Shell32.dll":Ico.1),Foo1:="Icon" (Ico.2!=""?Ico.2:Info.Icon),2)
 		if(Info.Title){
@@ -126,6 +137,13 @@ Class NotifyClass{
 		for a,b in StrSplit(Info.Animate,",")
 			Flags|=Round(this.Animation[b])
 		DllCall("AnimateWindow","UInt",Main,"Int",(Info.ShowDelay?Info.ShowDelay:this.ShowDelay),"UInt",(Flags?Flags:0x00000008|0x00000004|0x00040000|0x00000002))
+		/*
+			Sleep,1000
+		*/
+		/*
+			WinHide,ahk_id%Main%
+			WinMove,ahk_id%Main%,,0,0
+		*/
 		DetectHiddenWindows,%Hidden%
 		return ID
 	}Click(){
@@ -134,6 +152,9 @@ Class NotifyClass{
 		Win:=RegExReplace(Win,"\D")
 		Obj:=NotifyClass.Windows[Win]
 		NotifyClass.Windows.Delete(Win)
+		Flags:=this.Animation.Right
+		if(Obj.Hide)
+			DllCall("AnimateWindow","UInt",Obj.HWND,"Int",Obj.ShowDelay,"UInt",0x00050000|Obj.Hide)
 		Gui,% Obj.Win ":Destroy"
 		if(TT:=Obj.Timer)
 			SetTimer,%TT%,Off
