@@ -1,6 +1,6 @@
 #SingleInstance,Force
 Count:=0
-Notify:=Notify()
+Notify:=Notify(20)
 /*
 	Usage:
 	Notify:=Notify()
@@ -74,6 +74,7 @@ Click(Obj){
 ;Actual code starts here
 Notify(Margin:=5){
 	static Notify:=New NotifyClass()
+	Notify.Margin:=Margin
 	return Notify
 }
 Class NotifyClass{
