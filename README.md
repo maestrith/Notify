@@ -4,7 +4,7 @@ Usage:
 ```
 Notify:=Notify()
 
-WindowID:=Notify.AddWindow("Your Text Here",{Icon:4,Background:"0xAA00AA"})
+WindowID:=Notify.AddWindow("Your Text Here",{Icon:4,Background:"0xAA00AA",Buttons:"OK,Exit"})
 ```
 Window ID will be used when making calls to
 ```
