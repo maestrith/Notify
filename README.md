@@ -4,11 +4,11 @@ Usage:
 ```
 Notify:=Notify()
 
-Window:=Notify.AddWindow("Your Text Here",{Icon:4,Background:"0xAA00AA"})
+WindowID:=Notify.AddWindow("Your Text Here",{Icon:4,Background:"0xAA00AA"})
 ```
 Window ID will be used when making calls to
 ```
-Notify.SetProgress(Window,ProgressValue)
+Notify.SetProgress(WindowID,ProgressValue)
 ```
 ```
 Click(Obj){
