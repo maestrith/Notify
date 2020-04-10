@@ -14,6 +14,7 @@ Notify:=Notify(20)
 	Background: Color value in quotes eg. {Background:"0xAA00AA"}
 	Buttons: Comma Delimited list of names for buttons eg. {Buttons:"One,Two,Three"}
 	Color: Font color eg.{Color:"0xAAAAAA"}
+	Destroy: Comma Delimited list of Bottom, Top, Left, Right, Slide, Center, or Blend
 	Flash: Flashes the background of the notification every X ms eg. {Flash:1000}
 	FlashColor: Sets the second color that your notification will change to when flashing eg. {FlashColor:"0xFF00FF"}
 	Font: Face of the message font eg. {Font:"Consolas"}
@@ -101,7 +102,7 @@ Class NotifyClass{
 			Gui,Margin,% Floor(Info.Radius/3),% Floor(Info.Radius/3)
 		Gui,-Caption +HWNDMain +AlwaysOnTop +Owner%Owner%
 		Gui,Color,% Info.Background,% Info.Background
-		NotifyClass.Windows[ID]:={ID:"ahk_id" Main,HWND:Main,Win:"Win" ID,Text:Text,Background:Info.Background,FlashColor:Info.FlashColor,Title:Info.Title}
+		NotifyClass.Windows[ID]:={ID:"ahk_id" Main,HWND:Main,Win:"Win" ID,Text:Text,Background:Info.Background,FlashColor:Info.FlashColor,Title:Info.Title,ShowDelay:Info.ShowDelay,Destroy:Info.Destroy}
 		for a,b in Info
 			NotifyClass.Windows[ID,a]:=b
 		if((Ico:=StrSplit(Info.Icon,",")).1)
@@ -143,19 +144,19 @@ Class NotifyClass{
 		for a,b in StrSplit(Info.Animate,",")
 			Flags|=Round(this.Animation[b])
 		DllCall("AnimateWindow","UInt",Main,"Int",(Info.ShowDelay?Info.ShowDelay:this.ShowDelay),"UInt",(Flags?Flags:0x00000008|0x00000004|0x00040000|0x00000002))
+		for a,b in StrSplit((Obj.Destroy?Obj.Destroy:"Top,Left,Slide"),",")
+			Flags|=Round(this.Animation[b])
+		Flags|=0x00010000,NotifyClass.Windows[ID].Flags:=Flags
 		DetectHiddenWindows,%Hidden%
 		return ID
 	}Click(){
 		Obj:=NotifyClass.Windows[RegExReplace(A_Gui,"\D")],Obj.Button:=A_GuiControl,(Fun:=Func("Click"))?Fun.Call(Obj):"",this.Delete(A_Gui)
 	}Delete(Win){
-		Win:=RegExReplace(Win,"\D")
-		Obj:=NotifyClass.Windows[Win]
-		NotifyClass.Windows.Delete(Win)
-		Flags:=this.Animation.Right
-		if(Obj.Hide)
-			DllCall("AnimateWindow","UInt",Obj.HWND,"Int",Obj.ShowDelay,"UInt",0x00050000|Obj.Hide)
-		Gui,% Obj.Win ":Destroy"
-		if(TT:=Obj.Timer)
+		Win:=RegExReplace(Win,"\D"),Obj:=NotifyClass.Windows[Win],NotifyClass.Windows.Delete(Win)
+		if(WinExist("ahk_id" Obj.HWND)){
+			DllCall("AnimateWindow","UInt",Obj.HWND,"Int",Obj.ShowDelay,"UInt",Obj.Flags)
+			Gui,% Obj.Win ":Destroy"
+		}if(TT:=Obj.Timer)
 			SetTimer,%TT%,Off
 		this.SetPos()
 	}Dismiss(){

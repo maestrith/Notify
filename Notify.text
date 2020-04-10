@@ -1,1 +1,3 @@
-0.000.0
+0.000.1
+Fixed: Reported by PhyRBuRn #1
+-Click to Delete a Notification with a timer was causing an error
