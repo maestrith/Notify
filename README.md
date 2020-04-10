@@ -22,6 +22,7 @@ Animate|{Animate:"Bottom,Left"}|Ways that the window will animate in. Can be Bot
 Background|{Background:"0xAA00AA"}|Color value in quotes
 Buttons|{Buttons:"One,Two,Three"}|Comma Delimited list of names for buttons
 Color|{Color:"0xAAAAAA"}|Font color
+Destroy|{Destroy:"Top,Left"}|Comma Delimited list of Bottom, Top, Left, Right, Slide, Center, or Blend
 Flash|{Flash:1000}|Flashes the background of the notification every X ms
 FlashColor|{FlashColor:"0xFF00FF"}|Sets the second color that your notification will change to when flashing
 Font|{Font:"Consolas"}|Face of the message font
